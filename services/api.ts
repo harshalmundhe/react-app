@@ -11,9 +11,10 @@ export const AN_CONFIG = {
 }
 
 export const fetchAnime = async ({query} : {query : string}) => {
+      console.log("query => "+query);
      const endpoint = 
         query ? 
-        `${AN_CONFIG.BASE_URL}/anime?query=${encodeURIComponent(query)}`:
+        `${AN_CONFIG.BASE_URL}/anime?q=${encodeURIComponent(query)}`:
         `${AN_CONFIG.BASE_URL}/anime?order_by=popularity&limit=20`;
 
         console.log(endpoint);
