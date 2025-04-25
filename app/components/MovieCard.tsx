@@ -4,7 +4,7 @@ import { Text, Image, TouchableOpacity, View } from "react-native";
 
 import { icons } from "@/constants/icons";
 
-const MovieCard = ({mal_id, images, title_english, rating, year, popularity}: Movie) => {
+const MovieCard = ({mal_id, images, title, title_english, rating, year, popularity}: Movie) => {
   return (
     <Link href={`/movies/${mal_id}`} asChild>
       <TouchableOpacity className="w-[30%]">
@@ -17,7 +17,7 @@ const MovieCard = ({mal_id, images, title_english, rating, year, popularity}: Mo
         />
 
         <Text className="text-sm font-bold text-white mt-2" numberOfLines={1}>
-          {title_english}
+          {title_english || title}
         </Text>
 
         <View className="flex-row items-center justify-start gap-x-1">

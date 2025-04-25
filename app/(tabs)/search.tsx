@@ -55,7 +55,7 @@ const search = () => {
                   />
               )}
               className="mt-2 pb-32"
-              scrollEnabled={false}
+              scrollEnabled={true}
               contentContainerStyle={{
                 paddingBottom: 100
               }}
