@@ -4,9 +4,9 @@ import { Text, Image, TouchableOpacity, View } from "react-native";
 
 import { icons } from "@/constants/icons";
 
-const MovieCard = ({mal_id, images, title, title_english, rating, year, popularity}: Movie) => {
+const MovieCard = ({id, mal_id, images, title, title_english, rating, year, popularity}: Movie) => {
   return (
-    <Link href={`/movies/${mal_id}`} asChild>
+    <Link  href={`/movies/${mal_id}`} asChild>
       <TouchableOpacity className="w-[30%]">
         <Image
           source={{

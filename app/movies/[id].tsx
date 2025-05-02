@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import useFetch from '@/services/useFetch';
@@ -24,6 +24,10 @@ const ModeDetails = () => {
 
   return (
     <View className='bg-primary flex-1'>
+      {loading && (
+          <ActivityIndicator size="large" color="#0000ff" className='my-3' />
+      )}
+      {!loading && (
       <ScrollView contentContainerStyle={{
           paddingBottom:80
       }}>
@@ -68,6 +72,7 @@ const ModeDetails = () => {
                 <Text className='text-white font-semibold text-base'>Go Back</Text>
           </TouchableOpacity>
       </ScrollView>
+      )}
     </View>
   )
 }

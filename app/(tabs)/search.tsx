@@ -1,4 +1,4 @@
-import { View, Text, Image, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, Image, FlatList, ActivityIndicator, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { images } from '@/constants/images';
 import useFetch from "@/services/useFetch";
@@ -6,11 +6,13 @@ import { fetchAnime } from "@/services/api";
 import MovieCard from '../components/MovieCard';
 import { icons } from '@/constants/icons';
 import SearchBar from "../components/SearchBar";
+import FilterModal from '../components/FilterModal';
 
 const search = () => {
   
   const  [seachQuery, setSearchQuery] = useState('');
-
+  const [page, setPage] = useState(1);
+  const [anime, setAnime] = useState([]);
 
 
   const {data: movies, 
@@ -19,7 +21,8 @@ const search = () => {
     refetch: loadAnimes,
     reset
   } = useFetch(() => fetchAnime({
-    query: seachQuery
+    query: seachQuery,
+    page:page
   }), false);
 
   useEffect(() => {
@@ -31,16 +34,18 @@ const search = () => {
       }
     }, 500);
     return () => clearInterval(timeoutId);
-  }, [seachQuery])
+  }, [seachQuery]);
 
 
+    
+  
   return (
     <View className='flex-1 bg-primary'>
       <Image source={images.bg} className='flex-1 absolute w-full z-0'  resizeMode='cover' />
 
       <FlatList 
-          data={movies} 
-          keyExtractor={(item) => item.mal_id.toString()}
+          data={movies?.data} 
+          keyExtractor={(item) => item.id.toString()}
               numColumns={3}
               columnWrapperStyle={{
                 justifyContent: "flex-start",
@@ -62,15 +67,17 @@ const search = () => {
               ListHeaderComponent={
                 <>
                   <View className='w-full flex-1 justify-center mt-10'>
-                  <Image source={icons.logo} className="w-12 h-10 mt-10 mb-5 mx-auto" />
+                  <Image source={icons.logo} className="w-12 h-10 mb-5 mx-auto" />
                   </View>
                   
                   <View className='w-full flex-1 justify-center mt-10'>
                   <SearchBar
                     placeHolder="Search movie..."
                     value={seachQuery}
-                    onChangeText={(text: string) => setSearchQuery(text)}
+                    onChangeText={(text: string) => {setSearchQuery(text)} }
                   />
+                  <FilterModal />
+                  
                   </View>
 
                   {loading && (

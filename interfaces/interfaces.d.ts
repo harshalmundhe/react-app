@@ -1,4 +1,5 @@
 interface Movie {
+  id: number;
   mal_id: number;
   title: string;
   rating: number;
@@ -13,6 +14,7 @@ interface Movie {
 }
 
 interface TrendingMovie {
+  id: number;
   mal_id: number;
   title: string;
   images: any;
@@ -20,6 +22,7 @@ interface TrendingMovie {
 }
 
 interface MovieDetails {
+  id: number;
   mal_id: number;
   title: string;
   rating: number;

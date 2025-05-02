@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
-const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true) => {
+const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true, usePagination = false) => {
   const [data, setData] = useState<T | null>(null);
+  const [pagination, setPagination] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -11,7 +12,15 @@ const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true) => {
       setError(null);
 
       const result = await fetchFunction();
-      setData(result);
+
+      if(usePagination) {
+        setPagination(result?.pagination)
+        setData(result?.data);
+      } else {
+        setData(result);
+      }
+      
+      
     } catch (err) {
       setError(
         err instanceof Error ? err : new Error("An unknown error occurred")
@@ -33,7 +42,7 @@ const useFetch = <T>(fetchFunction: () => Promise<T>, autoFetch = true) => {
     }
   }, []);
 
-  return { data, loading, error, refetch: fetchData, reset };
+  return { data, loading, error, refetch: fetchData, reset, pagination };
 };
 
 export default useFetch;
